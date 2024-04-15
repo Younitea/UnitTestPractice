@@ -116,11 +116,7 @@ TEST(PasswordTest, last_char_upper)
 {
   Password my_password;
   bool actual = my_password.has_mixed_case("aaaaaaaaaaaB");
-<<<<<<< HEAD
   ASSERT_TRUE(actual);
-=======
-  Assert_TRUE(actual);
->>>>>>> 9af1143a1d18ebbb17008c9f5fff2adae2969155
 }
 
 TEST(PasswordTest, first_char_upper)
