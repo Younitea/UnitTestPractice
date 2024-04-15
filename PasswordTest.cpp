@@ -97,3 +97,31 @@ TEST(PasswordTest, up_low_true_odd_chars)
   bool actual = my_password.has_mixed_case("Cc921309u4\n\\$#@#!# p[][{]");
   ASSERT_TRUE(actual);
 }
+
+TEST(PasswordTest, one_lower)
+{
+  Password my_password;
+  bool actual = my_password.has_mixed_case("l");
+  ASSERT_FALSE(actual);
+}
+
+TEST(PasswordTest, one_upper)
+{
+  Password my_password;
+  bool actual = my_password.has_mixed_case("M");
+  ASSERT_FALSE(actual);
+}
+
+TEST(PasswordTest, last_char_upper)
+{
+  Password my_password;
+  bool actual = my_password.has_mixed_case("aaaaaaaaaaaB");
+  Assert_TRUE(actual);
+}
+
+TEST(PasswordTest, first_char_upper)
+{  
+  Password my_password;
+  bool actual = my_password.has_mixed_case("Baaaaaaaa");
+  ASSERT_TRUE(actual);
+}
