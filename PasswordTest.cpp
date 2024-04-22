@@ -125,3 +125,85 @@ TEST(PasswordTest, first_char_upper)
   bool actual = my_password.has_mixed_case("Baaaaaaaa");
   ASSERT_TRUE(actual);
 }
+
+TEST(PasswordTest, constructor_good)
+{
+  Password my_password;
+  bool actual = my_password.authenticate("ChicoCA-95929");
+  ASSERT_TRUE(actual);
+}
+
+TEST(PasswordTest, constructor_bad)
+{
+  Password my_password;
+  bool actual = my_password.authenticate("");
+  ASSERT_FALSE(actual);
+}
+
+TEST(PasswordTest, set_auth_good)
+{
+  Password my_password;
+  std::string input = "Hello, World!";
+  my_password.set(input);
+  bool actual = my_password.authenticate(input);
+  ASSERT_TRUE(actual);
+}
+
+TEST(PasswordTest, bad_set_short)
+{
+  Password my_password;
+  std::string input = "No";
+  my_password.set(input);
+	int actual = my_password.authenticate(input);
+	ASSERT_FALSE(actual);
+}
+
+TEST(PasswordTest, bad_set_long)
+{
+  Password my_password;
+  std::string input = "Noooooooooooooooooooooooooooooooooooooooooooooooooooo";
+  my_password.set(input);
+  int actual = my_password.authenticate(input);
+  ASSERT_FALSE(actual);
+}
+
+TEST(PasswordTest, bad_set_lower)
+{
+  Password my_password;
+  std::string input = "noooooooooooo";
+  my_password.set(input);
+  int actual = my_password.authenticate(input);
+  ASSERT_FALSE(actual);
+}
+
+TEST(PasswordTest, bad_set_dupe)
+{
+  Password my_password;
+  std::string input = "oooooooAoo";
+  my_password.set(input);
+  int actual = my_password.authenticate(input);
+  ASSERT_FALSE(actual);
+}
+
+TEST(PasswordTest, bad_set_old_password)
+{
+  Password my_password;
+  std::string input = "Old45678901";
+  my_password.set(input);
+  my_password.set("New45678901");
+  int actual = my_password.authenticate(input);
+  ASSERT_FALSE(actual);
+}
+
+TEST(PasswordTest, good_set_mutiple_passwords)
+{
+  Password my_password;
+  std::string input1 = "Old1234568901";
+  std::string input2 = "New1234567890";
+  std::string input3 = "final123456";
+  my_password.set(input1);
+  my_password.set(input2);
+  my_password.set(input3);
+  int actual = my_password.authenticate(input2);
+  ASSERT_TRUE(actual);
+}

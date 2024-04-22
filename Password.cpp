@@ -14,11 +14,11 @@ using std::string;
 void Password::set(string input){
   if(input.size() < 8 || input.size() > 20)
     return;
-  if(count_leading_chracters(input) > 3)
+  if(count_leading_characters(input) > 3)
     return;
   if(!(has_mixed_case(input)))
     return;
-  for(unsigned long int i = 0; i < pass_history.length(); i++){
+  for(unsigned long int i = 0; i < pass_history.size(); i++){
     if(pass_history.at(i) == input)
       return;
   }
@@ -30,7 +30,7 @@ bool Password::authenticate(string input){
   return(pass_history.back() == input);
 }
 
-bool Password::Password(){
+Password::Password(){
   set("ChicoCA-95929");
 }
 
@@ -59,74 +59,8 @@ bool Password::has_mixed_case(string str){
   }
   return(upper && lower);
   //Function A - PASS
-  /*bool has_lower = false;
-  bool has_upper = false;
-  for (char ch : str)
-  {
-    if (std::islower(ch))
-    {
-      has_lower = true;
-    }
-    else if (std::isupper(ch))
-    {
-      has_upper = true;
-    }
-  }
-  return has_lower && has_upper;
-  */
   //Implementation B - FAIL
-  /*int count_lower = 0;
-  for (int i = 0; i < str.length(); i++)
-  {
-    if (str[i] >= 'a' && str[i] <= 'z')
-    {
-      count_lower++;
-    }
-  }
-  return count_lower > 0 && count_lower < str.length();
-  */
   //Implementation C - PASS
-  /*bool lower = false;
-  bool upper = false;
-  for (int i = 0; i < str.length(); i++)
-  {
-    if (str[i] >= 'a' && str[i] <= 'z')
-    {
-      lower = true;
-    }
-    else if (str[i] >= 'A' && str[i] <= 'Z')
-    {
-      upper = true;
-    }
-  }
-  return upper && lower;
-  */
   //Implementation D - FAIL
-  /*bool is_lower = false;
-  bool is_upper = false;
-  for (char c : str)
-  {
-    if (std::islower(c))
-    {
-      is_lower = true;
-    }
-    else
-    {
-      is_upper = true;
-    }
-  }
-  return is_lower && is_upper;
-  */
   //Implemenation E - FAIL
-  /*bool found = false;
-  for(char c : str){
-    if( !found && c >= 'A' && c <= 'Z' ){
-      found = true;
-    }
-    else if( found && c >= 'a' && c <= 'z'){
-      return true;
-    }
-  }
-  return false;
-  */
 }
