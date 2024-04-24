@@ -207,3 +207,17 @@ TEST(PasswordTest, good_set_mutiple_passwords)
   int actual = my_password.authenticate(input2);
   ASSERT_TRUE(actual);
 }
+
+TEST(PasswordTest, duplicate_password)
+{
+  Password my_password;
+  std::string input1 = "Old1234568901";
+  std::string input2 = "New1234567890";
+  std::string input3 = "Good123456";
+  my_password.set(input1);
+  my_password.set(input2);
+  my_password.set(input3);
+  my_password.set(input2);
+  int actual = my_password.authenticate(input2);
+  ASSERT_FALSE(actual);
+}
